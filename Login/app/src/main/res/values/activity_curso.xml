@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="codigo">Código:</string>
+    <string name="nombre">Nombre:</string>
+    <string name="creditos">Cantidad de créditos:</string>
+    <string name="hora_semana">Horas por semana:</string>
+    <string name="anno">Año:</string>
+    <string name="ciclo">Ciclo:</string>
+    <string name="carrera">Carrera:</string>
+</resources>
