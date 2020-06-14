@@ -6,19 +6,22 @@
     android:paddingLeft="10dp"
     android:background="@drawable/fondo"
     android:paddingRight="10dp">
+
     <TextView
         android:id="@+id/txtVw1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Now Playing: "
         android:layout_marginTop="30dp"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/txtSname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtVw1"
-        android:layout_toRightOf="@+id/txtVw1"
+        android:layout_below="@+id/txtVw1"
+        android:layout_marginLeft="173dp"
+        android:layout_marginTop="461dp"
         android:text="TextView" />
 
     <ImageView
@@ -100,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/sBar"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-1dp"
         android:layout_toRightOf="@+id/btnForward"
         android:text="0 min, 0 sec " />
 

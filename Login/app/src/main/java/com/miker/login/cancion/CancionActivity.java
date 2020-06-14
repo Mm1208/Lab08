@@ -208,6 +208,13 @@ public class CancionActivity extends AppCompatActivity {
             mPlayer = MediaPlayer.create(this, R.raw.yourebeautiful);
         }
     }
+    @Override
+    protected void onStop() {
+        super.onStop();  // Always call the superclass method first
+
+        mPlayer.pause();
+        Toast.makeText(getApplicationContext(),"Pausing Audio", Toast.LENGTH_SHORT).show();
+    }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Image_Capture_Code) {
