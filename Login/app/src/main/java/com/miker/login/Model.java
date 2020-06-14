@@ -1,6 +1,8 @@
 package com.miker.login;
 
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.widget.ImageView;
 
 import com.miker.login.cancion.Cancion;
 
@@ -16,11 +18,13 @@ public class Model implements Serializable {
     private User loggedUser;
     private ArrayList<Cancion> canciones;
     private Cancion cancionSeleccionada;
+    private Bitmap imagen = null;
     private int[] covers;
 
     public Model(ArrayList<User> users, User loggedUser,  int[] covers) {
         this.users = users;
         this.loggedUser = loggedUser;
+        this.imagen = imagen;
         this.covers = covers;
     }
 
@@ -71,6 +75,14 @@ public class Model implements Serializable {
         this.cancionSeleccionada = cancionSeleccionada;
     }
 
+    public Bitmap getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Bitmap imagen) {
+        this.imagen = imagen;
+    }
+
     @Override
     public String toString() {
         return "Model{" +
@@ -83,11 +95,11 @@ public class Model implements Serializable {
 
         canciones = new ArrayList<Cancion>();
 
-        canciones.add(new Cancion(1,"Believer"));
-        canciones.add(new Cancion(2,"Locked Away"));
-        canciones.add(new Cancion(3,"Phorograph"));
-        canciones.add(new Cancion(4,"Youre Beautiful"));
-        canciones.add(new Cancion(5,"La Bamba"));
+        canciones.add(new Cancion(1,"Believer",null));
+        canciones.add(new Cancion(2,"Locked Away",null));
+        canciones.add(new Cancion(3,"Phorograph",null));
+        canciones.add(new Cancion(4,"Youre Beautiful",null));
+        canciones.add(new Cancion(5,"La Bamba",null));
     }
 
     public void initUsers(){

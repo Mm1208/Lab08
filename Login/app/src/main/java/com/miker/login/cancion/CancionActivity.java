@@ -1,27 +1,46 @@
 package com.miker.login.cancion;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.miker.login.LoginActivity;
 import com.miker.login.Model;
+import com.miker.login.NavDrawerActivity;
 import com.miker.login.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 
 public class CancionActivity extends AppCompatActivity {
-    private ImageButton forwardbtn, backwardbtn, pausebtn, playbtn;
+    private ImageButton btnCapture, forwardbtn, backwardbtn, pausebtn, playbtn, btnsave;
     private MediaPlayer mPlayer;
+    private ImageView imgCapture;
+    Cancion  cancion;
     private TextView songName, startTime, songTime;
+    private static final int Image_Capture_Code = 1;
     private SeekBar songPrgs;
+
     private static int oTime =0, sTime =0, eTime =0, fTime = 5000, bTime = 5000;
     private Handler hdlr = new Handler();
     Model model;
@@ -38,8 +57,35 @@ public class CancionActivity extends AppCompatActivity {
         songName = (TextView)findViewById(R.id.txtSname);
         startTime = (TextView)findViewById(R.id.txtStartTime);
         songTime = (TextView)findViewById(R.id.txtSongTime);
-        Cancion cancion = model.getCancionSeleccionada();
+        cancion = model.getCancionSeleccionada();
         songName.setText(cancion.getNombre());
+
+        btnCapture =(ImageButton)findViewById(R.id.btnTakePicture);
+        imgCapture = (ImageView) findViewById(R.id.capturedImage);
+
+        Bitmap bitmap = null;
+
+        String ruta;
+        ruta = "/"+ cancion.getNombre();
+        try{
+            FileInputStream fileInputStream =
+                    new FileInputStream(getApplicationContext().getFilesDir().getPath()+ ruta);
+            bitmap = BitmapFactory.decodeStream(fileInputStream);
+            imgCapture.setImageBitmap(bitmap);
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+
+
+
+
+        btnCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cInt,Image_Capture_Code);
+            }
+        });
 
         switch (cancion.getNombre()){
 
@@ -160,6 +206,32 @@ public class CancionActivity extends AppCompatActivity {
         }
         if(cancion.getNombre().equals("Youre Beautiful")) {
             mPlayer = MediaPlayer.create(this, R.raw.yourebeautiful);
+        }
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Image_Capture_Code) {
+            if (resultCode == RESULT_OK) {
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+                imgCapture.setImageBitmap(bp);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+                try {
+                    FileOutputStream outputStream = getApplicationContext().openFileOutput(cancion.getNombre() , Context.MODE_PRIVATE);
+                    outputStream.write(byteArray);
+                    outputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
+                }
+
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

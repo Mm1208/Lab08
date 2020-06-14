@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
@@ -18,12 +19,26 @@
         android:layout_alignBaseline="@+id/txtVw1"
         android:layout_toRightOf="@+id/txtVw1"
         android:text="TextView" />
+
     <ImageView
-        android:id="@+id/imgLogo"
+        android:id="@+id/capturedImage"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_below="@+id/txtVw1"
-        />
+        android:layout_marginTop="0dp" />
+
+    <ImageButton
+        android:id="@+id/btnTakePicture"
+        android:layout_width="34dp"
+        android:layout_height="35dp"
+        android:layout_alignTop="@+id/capturedImage"
+        android:layout_alignEnd="@+id/capturedImage"
+        android:layout_alignRight="@+id/capturedImage"
+        android:layout_marginTop="501dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        app:srcCompat="@drawable/im" />
+
     <ImageButton
         android:id="@+id/btnBackward"
         android:layout_width="wrap_content"
@@ -77,4 +92,6 @@
         android:layout_toRightOf="@+id/btnForward"
         android:layout_alignTop="@+id/sBar"
         android:text="0 min, 0 sec " />
+
+
 </RelativeLayout>

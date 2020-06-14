@@ -27,22 +27,6 @@
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".curso.CursosActivity"
-            android:label="@string/backdrop_title"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".curso.CursoActivity"
-            android:label="@string/backdrop_title"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".carrera.CarrerasActivity"
-            android:label="@string/backdrop_title2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".carrera.CarreraActivity"
-            android:label="@string/backdrop_title2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".cancion.CancionesActivity"
             android:label="Canciones"
             android:theme="@style/AppTheme.NoActionBar" />
