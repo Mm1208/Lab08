@@ -4,9 +4,7 @@
     <string name="preference_user_key">com.miker.componentes.USER</string>
     <string name="preference_user_key_default">none</string>
 
-    <string name="app_name">SIMA</string>
-    <string name="mastercard_visa">MasterCard Visa</string>
-    <string name="paypal">Paypal</string>
+    <string name="app_name">SESOR</string>
     <string name="name_as_it_appear_on_your_card">Name (as it appear on your card)</string>
     <string name="card_number_no_dashes_or_spaces">Card number (no dashes or spaces)</string>
     <string name="security_code">Security code</string>
@@ -37,7 +35,7 @@
         <item>2023</item>
         <item>2024</item>
     </string-array>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">SENSOR</string>
 
     <!-- Strings related to products cardview-->
     <string name="action_add_favourite">Add to Favourites</string>
@@ -58,10 +56,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_nav_drawer">Catalogue</string>
+    <string name="title_activity_nav_drawer">Principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">SIMA UNA</string>
+    <string name="nav_header_title">SENSOR</string>
     <string name="nav_header_subtitle">Bienvenido</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -79,5 +77,6 @@
     <string name="item_carreras">Carreras</string>
     <string name="item_canciones">Canciones</string>
     <string name="item_serch">Buscar</string>
+    <string name="item_perfil">Perfil</string>
 
 </resources>

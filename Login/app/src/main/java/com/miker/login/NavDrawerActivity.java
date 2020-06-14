@@ -3,28 +3,41 @@ package com.miker.login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
+import com.miker.login.Logic.Usuario;
+import com.miker.login.Logic.Utils;
 import com.miker.login.cancion.CancionesActivity;
-public class NavDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+
+import java.io.IOException;
+
+import static com.miker.login.Logic.Utils.getBitmapFromUri;
+import static com.miker.login.Logic.Utils.getUriToDrawable;
+import static com.miker.login.Logic.Utils.getUrlImage;
+
+public class NavDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences mPrefs;
+    private Usuario usuario;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +47,6 @@ public class NavDrawerActivity extends AppCompatActivity
 
         mPrefs = this.getSharedPreferences(getString(R.string.preference_user_key), Context.MODE_PRIVATE);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,6 +55,31 @@ public class NavDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+        Menu menu = navigationView.getMenu();
+
+        ConstraintLayout layout = (ConstraintLayout) navigationView.getHeaderView(0);
+
+        TextView nombre = layout.findViewById(R.id.text);
+        ImageView image = layout.findViewById(R.id.image);
+
+        nombre.setText(usuario.getPerson().getNombreCompleto());
+        try {
+            image.setImageURI(
+                    (usuario.getPerson().getFoto() == null) ?
+                            getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
+                            Uri.parse(usuario.getPerson().getFoto())
+            );
+//            image.setImageBitmap(
+//                    (usuario.getPerson().getFoto() == null) ?
+//                            getBitmapFromUri(Utils.getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()),getApplicationContext()) :
+//                            getBitmapFromUri(Uri.parse(usuario.getPerson().getFoto()),getApplicationContext())
+//            );
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -78,8 +107,10 @@ public class NavDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.nav_logout) {
+            finish();
+            Intent intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -88,22 +119,22 @@ public class NavDrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Intent intent = null;
 
-        Gson gson = new Gson();
-        String json = mPrefs.getString(getString(R.string.preference_user_key), "");
-        Model model = gson.fromJson(json, Model.class);
-        int privilegio = model.getLoggedUser().getPrivilege();
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-       if (id == R.id.nav_canciones) {
-            Intent intent = new Intent(NavDrawerActivity.this, CancionesActivity.class);
-            NavDrawerActivity.this.startActivity(intent);
-        }  else if (id == R.id.nav_logout) {
-            finish();
-            Intent intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
-            NavDrawerActivity.this.startActivity(intent);
+        if (id == R.id.nav_perfil) {
+            intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
+        } else if (id == R.id.nav_canciones) {
+            intent = new Intent(NavDrawerActivity.this, CancionesActivity.class);
         }
+        if (id == R.id.nav_logout) {
+            finish();
+            intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
+        } else {
+            intent.putExtra("usuario", usuario);
+        }
+        startActivityForResult(intent, 0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

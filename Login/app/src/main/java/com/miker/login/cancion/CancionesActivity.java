@@ -54,7 +54,6 @@ public class CancionesActivity extends AppCompatActivity implements RecyclerItem
         recyclerView = findViewById(R.id.recycler_view);
         carreraList = new ArrayList<>();
         model= new Model();
-        model = (Model) getIntent().getSerializableExtra("model");
         carreraList= model.getCanciones();
         adapter = new CancionesAdapter(carreraList, this);
         coordinatorLayout = findViewById(R.id.main_content_canciones);
