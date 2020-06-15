@@ -1,6 +1,8 @@
 package com.miker.login.cancion;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.miker.login.Logic.Utils;
 import com.miker.login.R;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +36,7 @@ public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyVi
     private List<Cancion> cancionListFiltered;
     private CancionesAdapter.CancionAdapterListener listener;
     private Cancion object;
-
+    Context prueba;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nombre;
         public ImageView background;
@@ -52,10 +55,11 @@ public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyVi
         }
     }
 
-    public CancionesAdapter(List<Cancion> cancionList, CancionesAdapter.CancionAdapterListener listener) {
+    public CancionesAdapter(List<Cancion> cancionList, CancionesAdapter.CancionAdapterListener listener, Context prueba) {
         this.cancionList = cancionList;
         this.listener = listener;
         this.cancionListFiltered = cancionList;
+        this.prueba = prueba;
     }
 
     @Override
@@ -70,8 +74,14 @@ public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyVi
     public void onBindViewHolder(final CancionesAdapter.MyViewHolder holder, final int position) {
         final Cancion cancion = cancionListFiltered.get(position);
         holder.nombre.setText(cancion.getNombre());
-        if(cancion.getBm() != null) {
-            holder.background.setImageBitmap(cancion.getBm());
+
+        String ruta;
+        ruta = "/"+ cancion.getNombre();
+        try{
+            FileInputStream  fileInputStream =  new FileInputStream(prueba.getFilesDir().getPath()+ ruta);
+            holder.background.setImageBitmap(BitmapFactory.decodeStream(fileInputStream));
+        }catch (IOException io){
+            io.printStackTrace();
         }
     }
 

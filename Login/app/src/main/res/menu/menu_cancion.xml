@@ -11,4 +11,8 @@
         android:id="@+id/nav_share"
         android:icon="@drawable/ic_user"
         android:title="@string/item_share" />
+    <item
+        android:id="@+id/nav_salir"
+        android:icon="@drawable/ic_user"
+        android:title="Salir" />
 </menu>

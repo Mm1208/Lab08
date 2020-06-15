@@ -28,6 +28,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.miker.login.LoginActivity;
 import com.miker.login.Model;
@@ -51,6 +53,7 @@ public class CancionActivity extends AppCompatActivity {
     private TextView songName, startTime, songTime;
     private static final int Image_Capture_Code = 1;
     private SeekBar songPrgs;
+    FileInputStream fileInputStream;
 
     private static int oTime =0, sTime =0, eTime =0, fTime = 5000, bTime = 5000;
     private Handler hdlr = new Handler();
@@ -80,8 +83,8 @@ public class CancionActivity extends AppCompatActivity {
         String ruta;
         ruta = "/"+ cancion.getNombre();
         try{
-            FileInputStream fileInputStream =
-                    new FileInputStream(getApplicationContext().getFilesDir().getPath()+ ruta);
+
+            fileInputStream = new FileInputStream(getApplicationContext().getFilesDir().getPath()+ ruta);
             bitmap = BitmapFactory.decodeStream(fileInputStream);
             imgCapture.setImageBitmap(bitmap);
         }catch (IOException io){
@@ -215,6 +218,14 @@ public class CancionActivity extends AppCompatActivity {
             dialog.show();
         }
 
+        if (id == R.id.nav_salir) {
+           Intent intent = new Intent(CancionActivity.this, CancionesActivity.class);
+
+        startActivityForResult(intent, 0);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -288,7 +299,6 @@ public class CancionActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();  // Always call the superclass method first
-
         mPlayer.pause();
         Toast.makeText(getApplicationContext(),"Pausing Audio", Toast.LENGTH_SHORT).show();
     }
