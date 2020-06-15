@@ -73,7 +73,7 @@ public class CancionActivity extends AppCompatActivity {
         cancion = model.getCancionSeleccionada();
         songName.setText(cancion.getNombre());
 
-        imgCapture = (ImageView) findViewById(R.id.capturedImage);
+        imgCapture = (ImageView) findViewById(R.id.background);
 
         Bitmap bitmap = null;
 

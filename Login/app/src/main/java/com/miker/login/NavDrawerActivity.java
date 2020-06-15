@@ -3,13 +3,19 @@ package com.miker.login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +28,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.koushikdutta.ion.Ion;
 import com.miker.login.Logic.Usuario;
 import com.miker.login.Logic.Utils;
 import com.miker.login.cancion.CancionesActivity;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import static com.miker.login.Logic.Utils.getBitmapFromUri;
 import static com.miker.login.Logic.Utils.getUriToDrawable;
@@ -67,31 +75,86 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         ImageView image = layout.findViewById(R.id.image);
 
         nombre.setText(usuario.getPerson().getNombreCompleto());
-   //     try {
+        //     try {
         //         image.setImageURI(
         //            (usuario.getPerson().getFoto() == null) ?
-                            //                        getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
+        //                        getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
         //                     Uri.parse(usuario.getPerson().getFoto())
         //    );
         //    } catch (Exception ex) {
         //       Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         //   }
 
-        try{
-            if(usuario.getPerson().getFoto() == null) {
+        try {
+            if (usuario.getPerson().getFoto() == null) {
                 image.setImageURI(getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()));
-            }else{
-            FileInputStream fileInputStream =
-                    new FileInputStream(getApplicationContext().getFilesDir().getPath()+ usuario.getPerson().getFoto());
-            image.setImageBitmap( BitmapFactory.decodeStream(fileInputStream));
+            } else {
+                FileInputStream fileInputStream =
+                        new FileInputStream(getApplicationContext().getFilesDir().getPath() + usuario.getPerson().getFoto());
+                image.setImageBitmap(BitmapFactory.decodeStream(fileInputStream));
+
 
             }
-        }catch (IOException io){
-            io.printStackTrace();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
+    }
 
+    private void scaleImage(ImageView view) throws NoSuchElementException  {
+        // Get bitmap from the the ImageView.
+        Bitmap bitmap = null;
+
+        try {
+            Drawable drawing = view.getDrawable();
+            bitmap = ((BitmapDrawable) drawing).getBitmap();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException("No drawable on given view");
+        } catch (ClassCastException e) {
+            // Check bitmap is Ion drawable
+            bitmap = Ion.with(view).getBitmap();
+        }
+
+        // Get current dimensions AND the desired bounding box
+        int width = 0;
+
+        try {
+            width = bitmap.getWidth();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException("Can't find bitmap on given view/drawable");
+        }
+
+        int height = bitmap.getHeight();
+        int bounding = dpToPx(120);
+
+        float xScale = ((float) bounding) / width;
+        float yScale = ((float) bounding) / height;
+        float scale = (xScale <= yScale) ? xScale : yScale;
+
+        // Create a matrix for the scaling and add the scaling data
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+
+        // Create a new bitmap and convert it to a format understood by the ImageView
+        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        width = scaledBitmap.getWidth(); // re-use
+        height = scaledBitmap.getHeight(); // re-use
+        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+
+        // Apply the scaled bitmap
+        view.setImageDrawable(result);
+
+        // Now change ImageView's dimensions to match the scaled image
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+        params.width = width;
+        params.height = height;
+        view.setLayoutParams(params);
+    }
+
+    private int dpToPx(int dp) {
+        float density = getApplicationContext().getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
     }
 
     @Override

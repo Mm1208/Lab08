@@ -34,6 +34,7 @@
             android:background="@android:color/transparent"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_user" />
     </androidx.cardview.widget.CardView>
 
