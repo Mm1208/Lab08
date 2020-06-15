@@ -138,6 +138,7 @@ public class CancionesActivity extends AppCompatActivity implements CancionesAda
     public void onSelected(Cancion cancion) { //TODO get the select item of recycleView
         Intent intent = new Intent(CancionesActivity.this, CancionActivity.class);
         model.setCancionSeleccionada(cancion);
+        intent.putExtra("usuario", getIntent().getSerializableExtra("usuario"));
         intent.putExtra("model", model);
         startActivityForResult(intent, 0);
     }

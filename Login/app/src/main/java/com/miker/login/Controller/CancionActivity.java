@@ -141,6 +141,7 @@ public class CancionActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(CancionActivity.this, CancionesActivity.class);
+        intent.putExtra("usuario", getIntent().getSerializableExtra("usuario"));
         intent.putExtra("model", model);
         startActivityForResult(intent, 0);
     }

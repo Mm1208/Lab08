@@ -70,7 +70,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 image.setImageBitmap(BitmapFactory.decodeStream(fileInputStream));
 
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
