@@ -1,14 +1,18 @@
 package com.miker.login.cancion;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +23,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.miker.login.LoginActivity;
 import com.miker.login.Model;
@@ -52,6 +59,8 @@ public class CancionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cancion);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         model = new Model();
         model = (Model) getIntent().getSerializableExtra("model");
         backwardbtn = (ImageButton)findViewById(R.id.btnBackward);
@@ -192,7 +201,59 @@ public class CancionActivity extends AppCompatActivity {
             startActivityForResult(cInt,Image_Capture_Code);
         }
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.nav_share) {
+            Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cInt,Image_Capture_Code);
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.nav_share) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
+            Dialog dialog = new Dialog(this);
+            loadDialog(dialog);
+            dialog.show();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadDialog(Dialog dialog) {
+        //
+        dialog.setContentView(R.layout.fragment_compartir);
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        TextView numero = (TextView) dialog.findViewById(R.id.number);
+        Button btn_accept = (Button) dialog.findViewById(R.id.btn_send);
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        //
+        title.setText("Compartir Canción");
+        //
+        btn_accept.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (numero.getText().toString().length() != 8) {
+                        numero.setError("El número debe contener 8 digitos");
+                    } else {
+                        SmsManager smgr = SmsManager.getDefault();
+                        smgr.sendTextMessage("+506" + numero.getText().toString(), null, songName.getText().toString(), null, null);
+                        Toast.makeText(getApplicationContext(), "Se envio con exito el mensaje", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(getApplicationContext(), "Falló el envio de mensaje: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        //
     }
 
     private Runnable UpdateSongTime = new Runnable() {
