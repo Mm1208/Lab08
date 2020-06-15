@@ -62,14 +62,13 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         ImageView image = layout.findViewById(R.id.image);
 
         nombre.setText(usuario.getPerson().getNombreCompleto());
+        image.setImageURI(getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()));
         try {
-            if (usuario.getPerson().getFoto() == null) {
-                image.setImageURI(getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()));
-            } else {
+
                 FileInputStream fileInputStream =
-                        new FileInputStream(getApplicationContext().getFilesDir().getPath() + usuario.getPerson().getFoto());
+                        new FileInputStream(getApplicationContext().getFilesDir().getPath() + "/" + usuario.getPerson().getNombre());
                 image.setImageBitmap(BitmapFactory.decodeStream(fileInputStream));
-            }
+
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
