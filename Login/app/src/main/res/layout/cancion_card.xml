@@ -64,7 +64,7 @@
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rec"
+        android:background="@color/colorPrimary"
         android:padding="@dimen/padd_10">
 
 

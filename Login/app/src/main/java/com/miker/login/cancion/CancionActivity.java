@@ -1,5 +1,6 @@
 package com.miker.login.cancion;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import com.miker.login.LoginActivity;
 import com.miker.login.Model;
@@ -33,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CancionActivity extends AppCompatActivity {
-    private ImageButton btnCapture, forwardbtn, backwardbtn, pausebtn, playbtn, btnsave;
+    private ImageButton forwardbtn, backwardbtn, pausebtn, playbtn, btnsave;
     private MediaPlayer mPlayer;
     private ImageView imgCapture;
     Cancion  cancion;
@@ -60,7 +64,6 @@ public class CancionActivity extends AppCompatActivity {
         cancion = model.getCancionSeleccionada();
         songName.setText(cancion.getNombre());
 
-        btnCapture =(ImageButton)findViewById(R.id.btnTakePicture);
         imgCapture = (ImageView) findViewById(R.id.capturedImage);
 
         Bitmap bitmap = null;
@@ -75,17 +78,6 @@ public class CancionActivity extends AppCompatActivity {
         }catch (IOException io){
             io.printStackTrace();
         }
-
-
-
-
-        btnCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cInt,Image_Capture_Code);
-            }
-        });
 
         switch (cancion.getNombre()){
 
@@ -179,6 +171,30 @@ public class CancionActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_cancion, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.nav_camera) {
+            Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cInt,Image_Capture_Code);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private Runnable UpdateSongTime = new Runnable() {
         @Override
         public void run() {

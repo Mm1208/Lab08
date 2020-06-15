@@ -71,11 +71,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                             getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
                             Uri.parse(usuario.getPerson().getFoto())
             );
-//            image.setImageBitmap(
-//                    (usuario.getPerson().getFoto() == null) ?
-//                            getBitmapFromUri(Utils.getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()),getApplicationContext()) :
-//                            getBitmapFromUri(Uri.parse(usuario.getPerson().getFoto()),getApplicationContext())
-//            );
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }

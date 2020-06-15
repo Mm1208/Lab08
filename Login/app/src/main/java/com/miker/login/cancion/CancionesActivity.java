@@ -21,15 +21,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.miker.login.Helper.RecyclerItemTouchHelper;
-import com.miker.login.LoginActivity;
 import com.miker.login.Model;
 import com.miker.login.NavDrawerActivity;
 import com.miker.login.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,7 +121,7 @@ public class CancionesActivity extends AppCompatActivity implements RecyclerItem
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds cursoList to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search_canciones, menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
 
         // Associate searchable configuration with the SearchView   !IMPORTANT
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);

@@ -78,5 +78,6 @@
     <string name="item_canciones">Canciones</string>
     <string name="item_serch">Buscar</string>
     <string name="item_perfil">Perfil</string>
+    <string name="item_camera">Camara</string>
 
 </resources>
