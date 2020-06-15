@@ -107,6 +107,16 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@+id/imageButton3"
             android:src="@android:drawable/ic_media_ff" />
+        <ImageButton
+            android:id="@+id/pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnPause"
+            android:layout_marginLeft="120dp"
+            android:layout_toRightOf="@+id/btnPause"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@+id/imageButton3"
+            android:src="@android:drawable/ic_media_ff" />
 
         <TextView
             android:id="@+id/txtStartTime"

@@ -53,7 +53,7 @@ public class CancionesActivity extends AppCompatActivity implements CancionesAda
         carreraList = new ArrayList<>();
         model = new Model();
         carreraList = model.getCanciones();
-        adapter = new CancionesAdapter(carreraList, this);
+        adapter = new CancionesAdapter(carreraList, this,getApplicationContext());
         coordinatorLayout = findViewById(R.id.main_content_canciones);
 
         // white background notification bar
