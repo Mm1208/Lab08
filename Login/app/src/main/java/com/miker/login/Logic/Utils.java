@@ -7,18 +7,24 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.widget.ImageView;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 
+import com.koushikdutta.ion.Ion;
 import com.miker.login.DAO.ServicioPersona;
 import com.miker.login.DAO.ServicioUsuario;
 import com.miker.login.R;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 public class Utils {
 
@@ -80,5 +86,54 @@ public class Utils {
         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
         parcelFileDescriptor.close();
         return image;
+    }
+
+    public static void scaleImage(ImageView view, Context context) throws NoSuchElementException {
+        // Get bitmap from the the ImageView.
+        Bitmap bitmap = null;
+
+        try {
+            Drawable drawing = view.getDrawable();
+            bitmap = ((BitmapDrawable) drawing).getBitmap();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException("No drawable on given view");
+        } catch (ClassCastException e) {
+            // Check bitmap is Ion drawable
+            bitmap = Ion.with(view).getBitmap();
+        }
+
+        // Get current dimensions AND the desired bounding box
+        int width = 0;
+
+        try {
+            width = bitmap.getWidth();
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException("Can't find bitmap on given view/drawable");
+        }
+
+        int height = bitmap.getHeight();
+        int bounding = dpToPx(2000, context);
+
+        float xScale = ((float) bounding) / width;
+        float yScale = ((float) bounding) / height;
+        float scale = (xScale <= yScale) ? xScale : yScale;
+
+        // Create a matrix for the scaling and add the scaling data
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+
+        // Create a new bitmap and convert it to a format understood by the ImageView
+        Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        width = scaledBitmap.getWidth(); // re-use
+        height = scaledBitmap.getHeight(); // re-use
+        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+
+        // Apply the scaled bitmap
+        view.setImageDrawable(result);
+    }
+
+    public static int dpToPx(int dp, Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
     }
 }

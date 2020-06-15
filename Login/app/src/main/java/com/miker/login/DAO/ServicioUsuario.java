@@ -152,7 +152,7 @@ public class ServicioUsuario extends Servicio {
                     null));
             result[0] = (list.isEmpty()) ? null : list.get(0);
         });
-        result[0].setPerson(ServicioPersona.getServicio(context).query(result[0].getPerson()));
+        if(result[0] != null) result[0].setPerson(ServicioPersona.getServicio(context).query(result[0].getPerson()));
         return result[0];
     }
 

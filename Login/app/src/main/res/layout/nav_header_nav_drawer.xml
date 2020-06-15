@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
+    android:layout_height="wrap_content"
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -21,7 +21,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,13 +29,15 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="270dp"
+            android:layout_height="270dp"
+            android:layout_marginLeft="-65dp"
+            android:layout_marginTop="-65dp"
             android:background="@android:color/transparent"
             android:baselineAlignBottom="false"
             android:clickable="false"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:scaleType="center"
+            android:scaleType="centerInside"
             app:srcCompat="@drawable/fondo" />
     </androidx.cardview.widget.CardView>
 

@@ -109,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("usuario", usuario);
                         startActivityForResult(intent, 0);
                         Toast.makeText(getApplicationContext(), "¡Bienvenido " + usuario.getPerson().getNombreCompleto() + "!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "¡Datos no reconocidos!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
                     Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();

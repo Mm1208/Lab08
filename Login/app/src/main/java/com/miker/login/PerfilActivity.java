@@ -24,6 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.miker.login.DAO.ServicioPersona;
 import com.miker.login.DAO.ServicioUsuario;
 import com.miker.login.Logic.Usuario;
+import com.miker.login.Logic.Utils;
 import com.miker.login.cancion.CancionActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +35,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static com.miker.login.DAO.ServicioPersona.getServicio;
+import static com.miker.login.Logic.Utils.scaleImage;
+import static com.miker.login.Logic.Utils.usuarioToContentValues;
 
 public class PerfilActivity extends AppCompatActivity {
     private ImageView imgCapture;
@@ -48,9 +51,9 @@ public class PerfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
-        button = (Button)findViewById(R.id.button);
-        save = (Button)findViewById(R.id.save);
-        userName = (TextView)findViewById(R.id.userName);
+        button = (Button) findViewById(R.id.button);
+        save = (Button) findViewById(R.id.save);
+        userName = (TextView) findViewById(R.id.userName);
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
         try {
@@ -58,29 +61,35 @@ public class PerfilActivity extends AppCompatActivity {
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        user = usuario.getPerson().getNombre() + " " +  usuario.getPerson().getApellido1() + " " +  usuario.getPerson().getApellido2();
+        user = usuario.getPerson().getNombre() + " " + usuario.getPerson().getApellido1() + " " + usuario.getPerson().getApellido2();
         userName.setText(user);
 
         imgCapture = (ImageView) findViewById(R.id.capturedImage);
 
         Bitmap bitmap = null;
 
-        String ruta;
-        ruta = "/"+ usuario.getPerson().getNombre();
-        try{
-            FileInputStream fileInputStream =
-                    new FileInputStream(getApplicationContext().getFilesDir().getPath()+ ruta);
-            bitmap = BitmapFactory.decodeStream(fileInputStream);
-            imgCapture.setImageBitmap(bitmap);
-        }catch (IOException io){
-            io.printStackTrace();
+        String ruta = null;
+        if (usuario.getPerson().getFoto() != null) {
+            ruta = usuario.getPerson().getFoto();
+        }
+        try {
+            if (ruta != null) {
+                FileInputStream fileInputStream =
+                        new FileInputStream(getApplicationContext().getFilesDir().getPath() + ruta);
+                bitmap = BitmapFactory.decodeStream(fileInputStream);
+                imgCapture.setImageBitmap(bitmap);
+            }else{
+                imgCapture.setImageURI(Utils.getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()));
+            }
+        } catch (Exception io) {
+            Toast.makeText(this, io.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cInt,Image_Capture_Code);
+                startActivityForResult(cInt, Image_Capture_Code);
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
@@ -95,14 +104,14 @@ public class PerfilActivity extends AppCompatActivity {
                     bp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] byteArray = stream.toByteArray();
 
-                    FileOutputStream outputStream = getApplicationContext().openFileOutput(usuario.getPerson().getNombre() , Context.MODE_PRIVATE);
+                    FileOutputStream outputStream = getApplicationContext().openFileOutput(usuario.getPerson().getNombre(), Context.MODE_PRIVATE);
                     outputStream.write(byteArray);
                     outputStream.close();
 
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 } catch (IOException e2) {
-                    e2.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e2.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
 
@@ -129,7 +138,7 @@ public class PerfilActivity extends AppCompatActivity {
                 byte[] byteArray = stream.toByteArray();
 
                 //Actualiza la ruta de la imagen de la persona
-                usuario.getPerson().setFoto("/"+usuario.getPerson().getNombre());
+                usuario.getPerson().setFoto("/" + usuario.getPerson().getNombre());
                 servicioPersona.update(usuario.getPerson());
 
 

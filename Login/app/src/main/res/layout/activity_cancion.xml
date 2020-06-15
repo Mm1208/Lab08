@@ -57,6 +57,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="185dp"
         android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/fondo" />
 
     <RelativeLayout
