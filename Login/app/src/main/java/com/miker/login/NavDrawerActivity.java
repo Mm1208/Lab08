@@ -3,6 +3,7 @@ package com.miker.login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.miker.login.Logic.Usuario;
 import com.miker.login.Logic.Utils;
 import com.miker.login.cancion.CancionesActivity;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import static com.miker.login.Logic.Utils.getBitmapFromUri;
@@ -65,15 +67,30 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         ImageView image = layout.findViewById(R.id.image);
 
         nombre.setText(usuario.getPerson().getNombreCompleto());
-        try {
-            image.setImageURI(
-                    (usuario.getPerson().getFoto() == null) ?
-                            getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
-                            Uri.parse(usuario.getPerson().getFoto())
-            );
-        } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+   //     try {
+        //         image.setImageURI(
+        //            (usuario.getPerson().getFoto() == null) ?
+                            //                        getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()) :
+        //                     Uri.parse(usuario.getPerson().getFoto())
+        //    );
+        //    } catch (Exception ex) {
+        //       Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        //   }
+
+        try{
+            if(usuario.getPerson().getFoto() == null) {
+                image.setImageURI(getUrlImage(usuario.getPerson().getSexo(), getApplicationContext()));
+            }else{
+            FileInputStream fileInputStream =
+                    new FileInputStream(getApplicationContext().getFilesDir().getPath()+ usuario.getPerson().getFoto());
+            image.setImageBitmap( BitmapFactory.decodeStream(fileInputStream));
+
+            }
+        }catch (IOException io){
+            io.printStackTrace();
         }
+
+
 
     }
 
@@ -119,7 +136,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_perfil) {
-            intent = new Intent(NavDrawerActivity.this, LoginActivity.class);
+            intent = new Intent(NavDrawerActivity.this, PerfilActivity.class);
         } else if (id == R.id.nav_canciones) {
             intent = new Intent(NavDrawerActivity.this, CancionesActivity.class);
         }
