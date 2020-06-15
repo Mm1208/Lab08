@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -92,8 +93,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 FileInputStream fileInputStream =
                         new FileInputStream(getApplicationContext().getFilesDir().getPath() + usuario.getPerson().getFoto());
                 image.setImageBitmap(BitmapFactory.decodeStream(fileInputStream));
-
-
             }
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
