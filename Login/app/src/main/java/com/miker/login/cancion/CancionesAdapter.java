@@ -1,54 +1,61 @@
 package com.miker.login.cancion;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.miker.login.Logic.Utils;
 import com.miker.login.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import static com.miker.login.Logic.Utils.getUrlImage;
 
 /**
  * Created by Luis Carrillo Rodriguez on 18/4/2018.
  */
 public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyViewHolder> implements Filterable {
 
-    private List<Cancion> carreraList;
-    private List<Cancion> carreraListFiltered;
+    private List<Cancion> cancionList;
+    private List<Cancion> cancionListFiltered;
     private CancionesAdapter.CancionAdapterListener listener;
     private Cancion object;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nombre;
-        public RelativeLayout viewForeground, viewBackgroundDelete, viewBackgroundEdit;
+        public ImageView background;
 
         public MyViewHolder(View view) {
             super(view);
             nombre = (TextView) view.findViewById(R.id.nombre);
-            viewForeground = view.findViewById(R.id.view_foreground);
+            background = view.findViewById(R.id.background);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // send selected contact in callback
-                    listener.onSelected(carreraListFiltered.get(getAdapterPosition()));
+                    listener.onSelected(cancionListFiltered.get(getAdapterPosition()));
                 }
             });
         }
     }
 
-    public CancionesAdapter(List<Cancion> carreraList, CancionesAdapter.CancionAdapterListener listener) {
-        this.carreraList = carreraList;
+    public CancionesAdapter(List<Cancion> cancionList, CancionesAdapter.CancionAdapterListener listener) {
+        this.cancionList = cancionList;
         this.listener = listener;
-        this.carreraListFiltered = carreraList;
+        this.cancionListFiltered = cancionList;
     }
 
     @Override
@@ -61,71 +68,16 @@ public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final CancionesAdapter.MyViewHolder holder, final int position) {
-        final Cancion cancion = carreraListFiltered.get(position);
+        final Cancion cancion = cancionListFiltered.get(position);
         holder.nombre.setText(cancion.getNombre());
+        if(cancion.getBm() != null) {
+            holder.background.setImageBitmap(cancion.getBm());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return carreraListFiltered.size();
-    }
-
-    public void removeItem(int position) {
-        object = carreraListFiltered.remove(position);
-        Iterator<Cancion> iter = carreraList.iterator();
-        while (iter.hasNext()) {
-            Cancion aux = iter.next();
-            if (object.equals(aux))
-                iter.remove();
-        }
-        // notify item removed
-        notifyItemRemoved(position);
-    }
-
-    public void restoreItem(int position) {
-
-        if (carreraListFiltered.size() == carreraList.size()) {
-            carreraListFiltered.add(position, object);
-        } else {
-            carreraListFiltered.add(position, object);
-            carreraList.add(object);
-        }
-        notifyDataSetChanged();
-        // notify item added by position
-        notifyItemInserted(position);
-    }
-
-    public Cancion getSwipedItem(int index) {
-        if (this.carreraList.size() == this.carreraListFiltered.size()) { //not filtered yet
-            return carreraList.get(index);
-        } else {
-            return carreraListFiltered.get(index);
-        }
-    }
-
-    public void onItemMove(int fromPosition, int toPosition) {
-        if (carreraList.size() == carreraListFiltered.size()) { // without filter
-            if (fromPosition < toPosition) {
-                for (int i = fromPosition; i < toPosition; i++) {
-                    Collections.swap(carreraList, i, i + 1);
-                }
-            } else {
-                for (int i = fromPosition; i > toPosition; i--) {
-                    Collections.swap(carreraList, i, i - 1);
-                }
-            }
-        } else {
-            if (fromPosition < toPosition) {
-                for (int i = fromPosition; i < toPosition; i++) {
-                    Collections.swap(carreraListFiltered, i, i + 1);
-                }
-            } else {
-                for (int i = fromPosition; i > toPosition; i--) {
-                    Collections.swap(carreraListFiltered, i, i - 1);
-                }
-            }
-        }
-        notifyItemMoved(fromPosition, toPosition);
+        return cancionListFiltered.size();
     }
 
     @Override
@@ -135,27 +87,27 @@ public class CancionesAdapter extends RecyclerView.Adapter<CancionesAdapter.MyVi
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
                 if (charString.isEmpty()) {
-                    carreraListFiltered = carreraList;
+                    cancionListFiltered = cancionList;
                 } else {
                     List<Cancion> filteredList = new ArrayList<>();
-                    for (Cancion row : carreraList) {
+                    for (Cancion row : cancionList) {
                         // filter use two parameters
                         if (row.getNombre().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
 
-                    carreraListFiltered = filteredList;
+                    cancionListFiltered = filteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = carreraListFiltered;
+                filterResults.values = cancionListFiltered;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                carreraListFiltered = (ArrayList<Cancion>) filterResults.values;
+                cancionListFiltered = (ArrayList<Cancion>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

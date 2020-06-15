@@ -5,6 +5,7 @@
     android:id="@+id/main_content_canciones"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
     tools:context="com.miker.login.cancion.CancionesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,6 +22,22 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main_canciones" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:gravity="center"
+        android:text="Biblioteca de Canciones"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <include
+        layout="@layout/content_main_canciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/cardview_light_background" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,6 +5,10 @@
     tools:context="com.miker.login.cancion.CancionActivity">
     <item
         android:id="@+id/nav_camera"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_menu_camera"
         android:title="@string/item_camera" />
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_user"
+        android:title="@string/item_share" />
 </menu>

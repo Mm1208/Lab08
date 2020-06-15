@@ -5,79 +5,22 @@
     <string name="preference_user_key_default">none</string>
 
     <string name="app_name">SESOR</string>
-    <string name="name_as_it_appear_on_your_card">Name (as it appear on your card)</string>
-    <string name="card_number_no_dashes_or_spaces">Card number (no dashes or spaces)</string>
-    <string name="security_code">Security code</string>
-    <string name="expiration_date">Expiration Date</string>
-    <string name="ok">Ok</string>
-    <string name="pagar">Pagar</string>
-    <string name="action_cart">Cart</string>
 
-    <string-array name="months_array">
-        <item>January</item>
-        <item>Febrary</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-
-    <string-array name="years_array">
-        <item>2020</item>
-        <item>2021</item>
-        <item>2022</item>
-        <item>2023</item>
-        <item>2024</item>
-    </string-array>
     <string name="title_activity_login">SENSOR</string>
 
-    <!-- Strings related to products cardview-->
-    <string name="action_add_favourite">Add to Favourites</string>
-    <string name="action_play_next">Play Next</string>
-    <string name="backdrop_title">Cursos</string>
-    <string name="backdrop_title2">Carrera</string>
-    <string name="backdrop_subtitle">UNA</string>
-
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_activity_nav_drawer">Principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">SENSOR</string>
     <string name="nav_header_subtitle">Bienvenido</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="example_card">Example Card</string>
-    <string name="todo">TODO</string>
-    <string name="price">Price</string>
-    <string name="quantity">qty</string>
-    <string name="default_qty_value">1</string>
-    <string name="default_cost_value">$0</string>
-    <string name="total">Total</string>
 
     <!-- Strings related to menu -->
-    <string name="item_matricula">Matricula</string>
-    <string name="item_cursos">Cursos</string>
-    <string name="item_carreras">Carreras</string>
     <string name="item_canciones">Canciones</string>
     <string name="item_serch">Buscar</string>
     <string name="item_perfil">Perfil</string>
-    <string name="item_camera">Camara</string>
+    <string name="item_camera">Cambiar Imagen</string>
+    <string name="item_share">Compartir</string>
+    <string name="item_setting">Configuración</string>
 
 </resources>
