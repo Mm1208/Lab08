@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cancion.CancionActivity"
-            android:label="Carrera"
+            android:label="Canción"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -205,10 +205,10 @@ public class CancionActivity extends AppCompatActivity {
         }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.nav_share) {
-            Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cInt,Image_Capture_Code);
-        }
+     //   if (id == R.id.nav_share) {
+       //     Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //      startActivityForResult(cInt,Image_Capture_Code);
+        //    }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.nav_share) {
