@@ -147,7 +147,7 @@ public class ServicioPersona extends Servicio {
                     persona.setId(cursor.getInt(cursor.getColumnIndex(usuarioEntry._ID)));
                     persona.setNombre(cursor.getString(cursor.getColumnIndex(usuarioEntry.NAME)));
                     persona.setApellido1(cursor.getString(cursor.getColumnIndex(usuarioEntry.FIRST_NAME)));
-                    persona.setApellido2(cursor.getString(cursor.getColumnIndex(usuarioEntry.FIRST_NAME)));
+                    persona.setApellido2(cursor.getString(cursor.getColumnIndex(usuarioEntry.SECOND_NAME)));
                     persona.setSexo(SEXO.values()[cursor.getInt(cursor.getColumnIndex(usuarioEntry.SEX))]);
                     persona.setFoto(cursor.getString(cursor.getColumnIndex(usuarioEntry.PHOTO)));
                     //

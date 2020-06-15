@@ -9,10 +9,12 @@
     tools:showIn="@layout/activity_canciones"
     tools:context="com.miker.login.cancion.CancionesActivity">
 
-    <view class="androidx.recyclerview.widget.RecyclerView"
+    <view
         android:id="@+id/recycler_view"
+        class="androidx.recyclerview.widget.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 

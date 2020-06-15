@@ -206,6 +206,24 @@ public class CancionActivity extends AppCompatActivity {
         }
     };
 
+    public void asignaCancion(){
+        Cancion cancion = model.getCancionSeleccionada();
+
+        songName.setText(cancion.getNombre());
+
+        if(cancion.getNombre().equals("Believer")) {
+            mPlayer = MediaPlayer.create(this, R.raw.believer);
+        }
+        if(cancion.getNombre().equals("Locked Away")) {
+            mPlayer = MediaPlayer.create(this, R.raw.lockedaway);
+        }
+        if(cancion.getNombre().equals("Phorograph")) {
+            mPlayer = MediaPlayer.create(this, R.raw.phorograph);
+        }
+        if(cancion.getNombre().equals("Youre Beautiful")) {
+            mPlayer = MediaPlayer.create(this, R.raw.yourebeautiful);
+        }
+    }
     @Override
     protected void onStop() {
         super.onStop();  // Always call the superclass method first
@@ -219,6 +237,7 @@ public class CancionActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bitmap bp = (Bitmap) data.getExtras().get("data");
                 imgCapture.setImageBitmap(bp);
+
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();

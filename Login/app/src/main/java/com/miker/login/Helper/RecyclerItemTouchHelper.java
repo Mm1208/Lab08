@@ -59,9 +59,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         if (viewHolder != null) {
             //check adapter
            if (this.listener.getClass().getSimpleName().equals("CancionesActivity")) {
-                backgroundViewEdit = ((CancionesAdapter.MyViewHolder) viewHolder).viewBackgroundEdit;
-                backgroundViewDelete = ((CancionesAdapter.MyViewHolder) viewHolder).viewBackgroundDelete;
-                foregroundView = ((CancionesAdapter.MyViewHolder) viewHolder).viewForeground;
+
             }
             //Selected item
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
