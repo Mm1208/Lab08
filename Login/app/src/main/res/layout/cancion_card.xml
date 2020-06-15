@@ -12,6 +12,7 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         card_view:srcCompat="@drawable/music"
         tools:layout_editor_absoluteX="5dp"
         tools:layout_editor_absoluteY="5dp" />

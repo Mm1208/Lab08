@@ -1,18 +1,15 @@
-package com.miker.login;
+package com.miker.login.Controller;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +19,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.miker.login.DAO.ServicioPersona;
-import com.miker.login.DAO.ServicioUsuario;
 import com.miker.login.Logic.Usuario;
 import com.miker.login.Logic.Utils;
-import com.miker.login.cancion.CancionActivity;
+import com.miker.login.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import static com.miker.login.DAO.ServicioPersona.getServicio;
-import static com.miker.login.Logic.Utils.scaleImage;
-import static com.miker.login.Logic.Utils.usuarioToContentValues;
 
 public class PerfilActivity extends AppCompatActivity {
     private ImageView imgCapture;

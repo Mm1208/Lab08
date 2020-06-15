@@ -11,9 +11,7 @@
         import androidx.recyclerview.widget.ItemTouchHelper;
         import androidx.recyclerview.widget.RecyclerView;
 
-        import com.miker.login.cancion.CancionesAdapter;
-
-/**
+        /**
  * Created by Luis Carrillo Rodriguez on 18/3/2018.
  */
 

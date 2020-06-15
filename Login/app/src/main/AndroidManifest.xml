@@ -10,14 +10,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/music"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".Controller.PerfilActivity"></activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Controller.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +26,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavDrawerActivity"
+            android:name=".Controller.NavDrawerActivity"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".cancion.CancionesActivity"
+            android:name=".Controller.CancionesActivity"
             android:label="Canciones"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".cancion.CancionActivity"
+            android:name=".Controller.CancionActivity"
             android:label="Carrera"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

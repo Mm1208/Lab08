@@ -65,8 +65,8 @@ public class ServicioPersona extends Servicio {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void registroData() {
-        insert(new Persona(1,"José", "Beita", "Cascante",SEXO.MASCULINO, null));
-        insert(new Persona(2,"Monserrath", "Molina", "Sanchez",SEXO.FEMENINO, null));
+        insert(new Persona(1,"Monserrath", "Molina", "Sanchez",SEXO.FEMENINO, null));
+        insert(new Persona(2,"José", "Beita", "Cascante",SEXO.MASCULINO, null));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

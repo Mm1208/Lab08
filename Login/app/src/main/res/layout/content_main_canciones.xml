@@ -7,7 +7,7 @@
     android:background="@color/viewBg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_canciones"
-    tools:context="com.miker.login.cancion.CancionesActivity">
+    tools:context="com.miker.login.Controller.CancionesActivity">
 
     <view
         android:id="@+id/recycler_view"

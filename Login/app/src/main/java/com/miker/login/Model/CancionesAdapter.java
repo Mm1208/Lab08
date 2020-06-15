@@ -1,31 +1,24 @@
-package com.miker.login.cancion;
+package com.miker.login.Model;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.miker.login.Logic.Utils;
+import com.miker.login.Logic.Cancion;
 import com.miker.login.R;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
-import static com.miker.login.Logic.Utils.getUrlImage;
 
 /**
  * Created by Luis Carrillo Rodriguez on 18/4/2018.

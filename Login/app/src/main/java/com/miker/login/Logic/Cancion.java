@@ -1,7 +1,6 @@
-package com.miker.login.cancion;
+package com.miker.login.Logic;
 
 import android.graphics.Bitmap;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 

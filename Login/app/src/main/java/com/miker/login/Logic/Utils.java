@@ -10,9 +10,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.miker.login.DAO.ServicioUsuario;
 import com.miker.login.R;
 
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
@@ -60,12 +63,17 @@ public class Utils {
         return count > 0;
     }
 
-    public static Uri getUrlImage(SEXO sexo, Context context){
+    public static Uri getUrlImage(SEXO sexo, Context context) {
         Uri result;
-        switch (sexo){
-            case MASCULINO: result = getUriToDrawable(context,R.drawable.hombre); break;
-            case FEMENINO: result = getUriToDrawable(context,R.drawable.mujer); break;
-            default: result = getUriToDrawable(context,R.drawable.usuario);
+        switch (sexo) {
+            case MASCULINO:
+                result = getUriToDrawable(context, R.drawable.hombre);
+                break;
+            case FEMENINO:
+                result = getUriToDrawable(context, R.drawable.mujer);
+                break;
+            default:
+                result = getUriToDrawable(context, R.drawable.usuario);
         }
         return result;
     }
@@ -75,7 +83,7 @@ public class Utils {
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)
-                + '/' + context.getResources().getResourceEntryName(drawableId) );
+                + '/' + context.getResources().getResourceEntryName(drawableId));
         return imageUri;
     }
 
@@ -134,6 +142,41 @@ public class Utils {
 
     public static int dpToPx(int dp, Context context) {
         float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float)dp * density);
+        return Math.round((float) dp * density);
+    }
+
+    public static void loadImage(ImageView imageView, String ruta, Context context) {
+        Bitmap bitmap = null;
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(context.getFilesDir().getPath() + ruta);
+            bitmap = BitmapFactory.decodeStream(fileInputStream);
+            imageView.setImageBitmap(bitmap);
+        } catch (IOException ex) {
+        }
+    }
+
+    public static MediaPlayer getSong(String nombre, Context context) {
+        MediaPlayer mPlayer;
+        switch (nombre) {
+            case "La Bamba":
+                mPlayer = MediaPlayer.create(context, R.raw.bamba);
+                break;
+            case "Believer":
+                mPlayer = MediaPlayer.create(context, R.raw.believer);
+                break;
+            case "Locked Away":
+                mPlayer = MediaPlayer.create(context, R.raw.lockedaway);
+                break;
+            case "Phorograph":
+                mPlayer = MediaPlayer.create(context, R.raw.phorograph);
+                break;
+            case "Youre Beautiful":
+                mPlayer = MediaPlayer.create(context, R.raw.yourebeautiful);
+                break;
+            default:
+                mPlayer = MediaPlayer.create(context, R.raw.bamba);
+        }
+        return mPlayer;
     }
 }

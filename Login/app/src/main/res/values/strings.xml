@@ -4,15 +4,15 @@
     <string name="preference_user_key">com.miker.componentes.USER</string>
     <string name="preference_user_key_default">none</string>
 
-    <string name="app_name">SESOR</string>
+    <string name="app_name">SMusic</string>
 
-    <string name="title_activity_login">SENSOR</string>
+    <string name="title_activity_login">SMusic</string>
 
     <!-- Strings related to login -->
     <string name="title_activity_nav_drawer">Principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">SENSOR</string>
+    <string name="nav_header_title">SMusic</string>
     <string name="nav_header_subtitle">Bienvenido</string>
 
     <!-- Strings related to menu -->
